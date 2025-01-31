@@ -37,17 +37,6 @@ def generate_response(
           {prompt}
           """, flush=True)
 
-    # message = Message(content=user_input, sender="user", timestamp=time.asctime(), settings=json.dumps({
-    #     "model": model,
-    #     "num_predict": num_predict,
-    #     "disable_streaming": disable_streaming,
-    #     "top_p": top_p,
-    #     "top_k": top_k,
-    #     "temperature": temperature
-    # }), prompt_context=prompt.model_dump_json())
-
-    # write_to_db(message.create_insert_query())
-
     chain = llm
 
     return chain.stream(prompt)
@@ -115,5 +104,5 @@ def use_prompt_template(input: str, context: str, ):
 
      """)
     ])
-    return tmpl.invoke({"question": input, "context": context})
 
+    return tmpl.invoke({"question": input, "context": context})
