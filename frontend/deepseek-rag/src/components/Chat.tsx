@@ -1,19 +1,40 @@
-// components/Chat.tsx
 import { useState } from "react";
+import { fetchChatResponse } from "../api/ChatApi";
 
 export function Chat() {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
   const [input, setInput] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
 
-  const sendMessage = () => {
-    if (input.trim() === "") return;
-    setMessages([...messages, { sender: "User", text: input }]);
+  const sendMessage = async () => {
+    if (input.trim() === "" || isStreaming) return;
+    
+    const userMessage = { sender: "User", text: input };
+    setMessages([...messages, userMessage]);
     setInput("");
+    setIsStreaming(true);
 
-    // Simulated bot response
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { sender: "Bot", text: "Hello! How can I help?" }]);
-    }, 1000);
+    try {
+      const responseStream = await fetchChatResponse(input);
+      const botMessage = { sender: "Bot", text: "" };
+
+      const reader = responseStream.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          botMessage.text += decoder.decode(value, { stream: true });
+          setMessages((prev) => [...prev.slice(0, -1), botMessage]);
+        }
+      }
+    } catch (error) {
+      console.error("Streaming error:", error);
+    } finally {
+      setIsStreaming(false);
+    }
   };
 
   return (
@@ -31,9 +52,14 @@ export function Chat() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 border p-2 rounded-l"
+          disabled={isStreaming}
         />
-        <button onClick={sendMessage} className="px-4 bg-blue-500 text-white rounded-r">
-          Send
+        <button
+          onClick={sendMessage}
+          className="px-4 bg-blue-500 text-white rounded-r"
+          disabled={isStreaming}
+        >
+          {isStreaming ? "..." : "Send"}
         </button>
       </div>
     </div>
