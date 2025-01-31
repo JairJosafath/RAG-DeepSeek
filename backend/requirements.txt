@@ -1,14 +1,14 @@
 flask
 langchain_ollama 
 langchain_core
-# chromadb
-# langchain_community
+chromadb
+langchain_community
 # langchain_text_splitters
-# langchain_chroma
-# pypdf
+langchain_chroma
+pypdf
 # langchain
 python-dotenv
-# docx2txt
+docx2txt
 # pytest
 # psycopg[binary]
 # flask_cors
