@@ -2,15 +2,17 @@ import { useState } from "react";
 import { fetchChatResponse } from "../api/ChatApi";
 
 export function Chat() {
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
+    []
+  );
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
 
   const sendMessage = async () => {
     if (input.trim() === "" || isStreaming) return;
-    
+
     const userMessage = { sender: "User", text: input };
-    setMessages([...messages, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsStreaming(true);
 
@@ -26,8 +28,22 @@ export function Chat() {
           const { done, value } = await reader.read();
           if (done) break;
 
+          setMessages((prev) => [...prev, botMessage]);
           botMessage.text += decoder.decode(value, { stream: true });
-          setMessages((prev) => [...prev.slice(0, -1), botMessage]);
+          setMessages((prev) => [
+            ...prev.slice(0, prev.length - 1),
+            botMessage,
+          ]);
+
+          // patch fix for streaming bug, multiple responses from the bot
+          // remove duplicates
+
+          setMessages((prev) =>
+            prev.filter(
+              (msg, index, self) =>
+                self.findIndex((m) => m.text === msg.text) === index
+            )
+          );
         }
       }
     } catch (error) {
@@ -39,9 +55,14 @@ export function Chat() {
 
   return (
     <div className="w-96 bg-white p-4 rounded shadow-md">
-      <div className="h-64 overflow-y-auto border-b p-2 mb-2">
+      <div className="h-full overflow-y-auto border-b p-2 mb-2">
         {messages.map((msg, index) => (
-          <div key={index} className={`mb-1 ${msg.sender === "User" ? "text-right" : "text-left"}`}>
+          <div
+            key={index}
+            className={`mb-1 ${
+              msg.sender === "User" ? "text-right" : "text-left"
+            }`}
+          >
             <strong>{msg.sender}:</strong> {msg.text}
           </div>
         ))}
