@@ -1,0 +1,54 @@
+services:
+  frontend:
+    hostname: frontend
+    build: ./frontend/deepseek-rag
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+
+  chromadb:
+    image: chromadb/chroma
+    hostname: chromadb
+    volumes:
+      - chroma_vol:/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma
+      - ANONYMIZED_TELEMETRY=${ANONYMIZED_TELEMETRY:-TRUE}
+    ports:
+      - 8000:8000
+
+  app:
+    build: ./backend
+    hostname: app
+    ports:
+      - "5000:5000"
+    depends_on:
+      chromadb:
+        condition: service_started
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_vol:/.ollama/models
+    environment:
+      - OLLAMA_MODELS=/.ollama/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  chroma_vol:
+  ollama_vol:
+    external: true
