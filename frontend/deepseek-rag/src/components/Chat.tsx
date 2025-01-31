@@ -54,7 +54,7 @@ export function Chat() {
   };
 
   return (
-    <div className="w-96 bg-white p-4 rounded shadow-md">
+    <div className="w-full bg-white p-4 rounded shadow-md">
       <div className="h-full overflow-y-auto border-b p-2 mb-2">
         {messages.map((msg, index) => (
           <div
