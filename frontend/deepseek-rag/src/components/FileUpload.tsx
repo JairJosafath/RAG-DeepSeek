@@ -1,8 +1,8 @@
-// components/FileUpload.tsx
 import { useState } from "react";
-
+import { uploadDocument } from "../api/UploadApi";
 export function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<string>("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -10,10 +10,15 @@ export function FileUpload() {
     }
   };
 
-  const handleUpload = () => {
-    if (file) {
-      console.log("Uploading:", file.name);
-      // Implement upload logic here
+  const handleUpload = async () => {
+    if (!file) return;
+    setUploadStatus("Uploading...");
+
+    try {
+      const response = await uploadDocument(file);
+      setUploadStatus(response);
+    } catch (e) {
+      setUploadStatus("Upload failed: "+ e);
     }
   };
 
@@ -26,6 +31,7 @@ export function FileUpload() {
       >
         Upload
       </button>
+      {uploadStatus && <p className="mt-2 text-sm">{uploadStatus}</p>}
     </div>
   );
 }
