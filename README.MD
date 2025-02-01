@@ -4,11 +4,11 @@
 RAG-DeepSeek is a proof-of-concept application that demonstrates the integration of Retrieval-Augmented Generation (RAG) using a local DeepSeek model with Ollama. This project showcases how to combine document retrieval with large language models to provide accurate and contextually relevant responses.
 
 <div align="center">
-  <img src="img/arch.png" width="50%" alt="DeepSeek-V3" />
+  <img src="img/arch.png" width="80%" alt="DeepSeek-V3" />
 </div>
 
 <div align="center">
-  <img src="img/app.png" width="50%" alt="DeepSeek-V3" />
+  <img src="img/app.png" width="80%" alt="DeepSeek-V3" />
 </div>
 
 ## Features
