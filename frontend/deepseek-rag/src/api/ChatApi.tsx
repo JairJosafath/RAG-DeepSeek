@@ -8,7 +8,7 @@ export async function fetchChatResponse(query: string) {
       body: JSON.stringify({
         query,
         model: "deepseek-r1:7b",
-        num_predict: -1,
+        num_predict: 256,
         disable_streaming: false,
       }),
     });
