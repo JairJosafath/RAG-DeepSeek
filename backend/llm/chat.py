@@ -32,14 +32,7 @@ def generate_response(
     prompt_with_context = build_prompt_with_context(results)
     prompt = use_prompt_template(user_input, prompt_with_context)
 
-    print(f"""
-    full prompt body
-          {prompt}
-          """, flush=True)
-
-    chain = llm
-
-    return chain.stream(prompt)
+    return llm.stream(prompt)
 
 
 

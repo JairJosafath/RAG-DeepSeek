@@ -1,7 +1,7 @@
 services:
   frontend:
     hostname: frontend
-    build: 
+    build:
       context: ./frontend/deepseek-rag
     ports:
       - "80:80"

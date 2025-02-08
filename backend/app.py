@@ -40,19 +40,9 @@ def document():
     
     file = request.files['file']
     title = request.form.get("title")
-    file_size = request.form.get("size")
-    file_type = request.form.get("type")
-    
-    # Process file metadata
-    file_info = {
-        "title": title,
-        "size": file_size,
-        "type": file_type
-    }
-    print("Received file:", file_info, flush=True)
 
     try:
-        embed_file(title=title, file=file, size=file_size, type=file_type)
+        embed_file(title=title, file=file)
         return "File embedded successfully", 200, {'Content-Type': 'text/plain'}
     except Exception as e:
         return str(e), 500, {'Content-Type': 'text/plain'}
