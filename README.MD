@@ -10,6 +10,7 @@
 1. Clone the repository
 ```bash
 git clone https://github.com/JairJosafath/RAG-DeepSeek.git
+git checkout 01-setup
 ```
 2. Install the dependencies
 There are 2 ways to install the dependencies. 
