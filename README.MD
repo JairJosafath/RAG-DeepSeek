@@ -18,6 +18,19 @@ docker volume create ollama_vol
 
 ## Running & Testing the application
 ### 1. Run the docker-compose file
+If you don't have a GPU, you can remove the "deploy" section from the `compose.yml` file.
+compose.yaml:29
+```yaml
+deploy:
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: 1
+          capabilities: [gpu]
+```
+Then run the following command to start the containers.
+
 ```bash
 docker-compose up 
 ```
@@ -28,8 +41,9 @@ docker-compose up --build -d --force-recreate
 ```
 
 ### 2. Before we can test the ollama server, we need to pull the models from the ollama server. To do this, run the following command:
+choose the model you'd like to use. I will use a small deepseek model for this example.
 ```bash
-docker exec rag-deepseek-ollama-1 ollama pull deepseek-r1:7b
+docker exec rag-deepseek-ollama-1 ollama pull deepseek-r1:1.5b
 ```
 This might take a while, as the model is being downloaded from the ollama server. When the download is complete, you should see a success message. You can continue to the next step.
 
