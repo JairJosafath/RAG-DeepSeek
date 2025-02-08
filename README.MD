@@ -13,4 +13,10 @@ docker-compose up --build -d --force-recreate
 
 ### 3. Open your browser, go to `http://localhost/`. The title should say Deepseeker-04.
 
+### 4. Pull emmbedding model
+to fill our vector database, we need to pull the embedding model. To do this, open a terminal and run the following command:
+```bash
+ docker exec rag-deepseek-ollama-1 ollama pull nomic-embed-text
+```
+
 ### 4. Upload a document and ask a question to test the application.
