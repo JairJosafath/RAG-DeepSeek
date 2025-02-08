@@ -10,12 +10,7 @@ def load_env():
         "OLLAMA_BASE_URL"
     )
 
-    LLAMA_MODEL = os.getenv(
-        "LLAMA_MODEL",
-        "llama3.2:1b"
-    )
-
-    return LLAMA_MODEL, LLAMA_HOST
+    return LLAMA_HOST
 
 
 def create_chatbot(
@@ -26,10 +21,7 @@ def create_chatbot(
         top_k,
         temperature,
 ):
-    LLAMA_MODEL, LLAMA_HOST = load_env()
-
-    if model is None or model == "":
-        model = LLAMA_MODEL
+    LLAMA_HOST = load_env()
 
     try:
         llm = ChatOllama(

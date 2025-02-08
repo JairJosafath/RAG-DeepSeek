@@ -1,7 +1,5 @@
-from flask import Flask, jsonify, request, json, Response, stream_with_context
-import requests
+from flask import Flask, jsonify, request, stream_with_context
 from llm.chat import generate_response
-from requests.models import Response as Response_
 
 app = Flask(__name__)
 

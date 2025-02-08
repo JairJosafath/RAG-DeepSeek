@@ -21,31 +21,4 @@ def generate_response(
         temperature=temperature
     )
 
-    # vector_store = get_or_create_vector_store(COLLECTION_NAME)
-
-    # results = vector_store.similarity_search(
-    #     query=user_input,
-    # )
-
-    # prompt_with_context = build_prompt_with_context(results)
-    # prompt = use_prompt_template(user_input, prompt_with_context)
-
-    # print(f"""
-    # full prompt body
-    #       {prompt}
-    #       """, flush=True)
-
-    # message = Message(content=user_input, sender="user", timestamp=time.asctime(), settings=json.dumps({
-    #     "model": model,
-    #     "num_predict": num_predict,
-    #     "disable_streaming": disable_streaming,
-    #     "top_p": top_p,
-    #     "top_k": top_k,
-    #     "temperature": temperature
-    # }), prompt_context=prompt.model_dump_json())
-
-    # write_to_db(message.create_insert_query())
-
-    chain = llm
-
-    return chain.stream(user_input)
+    return llm.stream(user_input)
