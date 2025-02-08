@@ -10,6 +10,9 @@ export async function fetchChatResponse(query: string) {
         model: "deepseek-r1:7b",
         num_predict: 1028,
         disable_streaming: false,
+        temperature: 0.1,
+        top_p: 0.9,
+        top_k: 0,
       }),
     });
 
