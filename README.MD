@@ -38,7 +38,7 @@ docker-compose up
 
 On Mac you might run into port related issues. You can change the ports in the `compose.yaml` file. If 5000 is the port that is already in use, you can change it to another port, you have todo some refactoring in the following files:
 1. compose.yaml:10
-2. compose.yaml:10 change "5000:5000" to "5001:5000"
+2. compose.yaml:10 change "5000:5000" to "newport:5000"
 3. frontend\deepseek-rag\nginx.conf:15 
 4. tests\01-postman.test.json:
 
