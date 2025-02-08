@@ -2,8 +2,6 @@ export async function uploadDocument(file: File) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", file.name);
-    formData.append("size", file.size.toString());
-    formData.append("type", file.type);
   
     try {
       const response = await fetch("api/document", {
@@ -12,7 +10,7 @@ export async function uploadDocument(file: File) {
       });
   
       if (!response.ok) {
-        throw new Error("Failed to upload document");
+        throw new Error("Failed to upload document: "+await response.text());
       }
   
       return await response.text();

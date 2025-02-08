@@ -1,9 +1,8 @@
 services:
   frontend:
     hostname: frontend
-    build: 
+    build:
       context: ./frontend/deepseek-rag
-      # no_cache: true
     ports:
       - "80:80"
     depends_on:

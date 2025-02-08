@@ -18,13 +18,18 @@ export function FileUpload() {
       const response = await uploadDocument(file);
       setUploadStatus(response);
     } catch (e) {
-      setUploadStatus("Upload failed: "+ e);
+      setUploadStatus("Upload failed: " + e);
     }
   };
 
   return (
     <div className="mb-4">
-      <input type="file" onChange={handleFileChange} className="mr-2 p-2 border bg-gray-100 rounded w-60 inline-block hover:bg-gray-200 cursor-pointer" />
+      <input
+        type="file"
+        onChange={handleFileChange}
+        accept=".pdf"
+        className="mr-2 p-2 border bg-gray-100 rounded w-60 inline-block hover:bg-gray-200 cursor-pointer"
+      />
       <button
         onClick={handleUpload}
         className="ml-2 px-4 py-2 bg-blue-500 text-white rounded"

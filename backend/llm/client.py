@@ -48,11 +48,3 @@ def create_chatbot(
         """, flush=True)
 
     return None
-
-
-def hello_llama():
-    llm = create_chatbot(num_predict=24, top_p=0.1, top_k=1, temperature=0.1)
-    return llm.invoke([
-        ("system", "You only need to say hello from llama."),
-        ("human", "hello!"),
-    ])

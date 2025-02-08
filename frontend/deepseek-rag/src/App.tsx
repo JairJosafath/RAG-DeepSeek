@@ -11,7 +11,7 @@ export default function App() {
   }, []);
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 ">
-      <h1 className="text-2xl font-bold mb-4">Deepseeker</h1>
+      <h1 className="text-2xl font-bold mb-4">Deepseeker-04</h1>
       <FileUpload />
       <Chat />
     </div>
