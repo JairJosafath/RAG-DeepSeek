@@ -52,8 +52,6 @@ docker exec rag-deepseek-ollama-1 ollama pull nomic-embed-text
 
 ### Cursor AI
 - [Cursor Official Website](https://cursor.sh/)
-- [Cursor Documentation](https://cursor.sh/docs)
-- [Getting Started with Cursor AI](https://cursor.sh/blog/getting-started)
 - [Cursor GitHub](https://github.com/getcursor/cursor)
 
 ### Related Technologies
