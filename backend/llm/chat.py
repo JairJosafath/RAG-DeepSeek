@@ -12,7 +12,8 @@ def generate_response(
         disable_streaming: bool = True,
         top_p: float = .9,
         top_k: int = 40,
-        temperature: float = 0.8
+        temperature: float = 0.8,
+        vector_store = None
 ):
     llm: ChatOllama = create_chatbot(
         model=model,
@@ -23,7 +24,8 @@ def generate_response(
         temperature=temperature
     )
 
-    vector_store = get_or_create_vector_store()
+    if vector_store is None:
+        vector_store = get_or_create_vector_store()
 
     results = vector_store.similarity_search(
         query=user_input,

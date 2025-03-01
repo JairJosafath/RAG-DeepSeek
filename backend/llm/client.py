@@ -1,4 +1,4 @@
-from langchain_ollama.chat_models import ChatOllama
+from langchain_ollama.chat_models import ChatOllama, Client
 from dotenv import load_dotenv
 import os
 
@@ -12,7 +12,7 @@ def load_env():
 
     LLAMA_MODEL = os.getenv(
         "LLAMA_MODEL",
-        "llama3.2:1b"
+        "deepseek-r1:1.5b"
     )
 
     return LLAMA_MODEL, LLAMA_HOST
@@ -48,3 +48,10 @@ def create_chatbot(
         """, flush=True)
 
     return None
+
+def list_models():
+    _, LLAMA_HOST = load_env()
+    client = Client(LLAMA_HOST)
+    models = client.list()
+    return models
+
