@@ -92,6 +92,9 @@ def use_prompt_template(input: str, context: str, ):
     </doc>
     """
          ),
+         ("system", """
+          never mention the example that you use to understand the context, this information is only for you to understand the context.
+         """),
         ("user", """
      {context}
 
